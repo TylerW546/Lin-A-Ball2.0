@@ -26,11 +26,13 @@ class House(RectArea):
             House.houses.append(self)
         
     def move(self):
-        self.x = random.randint(5,595-self.size)
+        self.x = random.randint(5,SCREEN_WIDTH-5-self.size)
         if self.x <= 105:
-            self.y = random.randint(105,595-self.size)
-        elif self.x >= 435:
-            self.y = random.randint(5,495-self.size)
+            self.y = random.randint(105,SCREEN_HEIGHT-5-self.size)
+        elif self.x >= SCREEN_WIDTH-105:
+            self.y = random.randint(5,SCREEN_HEIGHT-105-self.size)
+        else:
+            self.y = random.randint(5,SCREEN_HEIGHT-5-self.size)
 
 
 class Zone(RectArea):

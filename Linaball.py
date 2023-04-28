@@ -72,7 +72,6 @@ while running and ticks <= gameTimer and lives > 0:
             bottom_box = False
             lives -= 1
             print(points)
-    
 
 
     #erase previous drawing

@@ -13,8 +13,11 @@ class Player:
         self.y = SCREEN_HEIGHT - r
         self.radius = r
         self.color = c
-        self.dx = 7
-        self.dy = 7
+        self.dx = 0
+        self.dy = 0
+        self.ax = 0
+        self.ay = 0
+        self.speed = 7
 
         self.inHouse = False
 
@@ -24,14 +27,31 @@ class Player:
         self.inEnemy = False
     
     def move(self, keys):
+        self.ax = 0
+        self.ay = 0
+        
+        a = 2
         if keys[pygame.K_w] or keys[pygame.K_UP]:
-            self.y -= self.dy
+            self.ay -= a
         if keys[pygame.K_a] or keys[pygame.K_LEFT]:
-            self.x -= self.dx
+            self.ax -= a
         if keys[pygame.K_s] or keys[pygame.K_DOWN]:
-            self.y += self.dy
+            self.ay += a
         if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
-            self.x += self.dx
+            self.ax += a
+        
+        self.dx *= .8
+        self.dy *= .8
+
+        self.dx += self.ax
+        self.dy += self.ay
+        
+        maxVel = 7
+        self.dx = max(-maxVel, min(self.dx, maxVel))
+        self.dy = max(-maxVel, min(self.dy, maxVel))
+        
+        self.x += self.dx
+        self.y += self.dy
     
         #this limits the x and y coordinates of the red circle
         self.x = max(self.radius, min(self.x, SCREEN_WIDTH - self.radius))

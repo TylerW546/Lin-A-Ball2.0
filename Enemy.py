@@ -52,5 +52,6 @@ class Enemy:
     def draw(self, screen):
         for i in range(len(self.positions)):
             pos = self.positions[::-1][i]
-            pygame.draw.circle(screen, self.color, (pos[0], pos[1]), self.radius*(i/len(self.positions)))
+            pygame.draw.circle(screen, self.color, (pos[0], pos[1]), 2)
+            #pygame.draw.circle(screen, self.color, (pos[0], pos[1]), self.radius*(i/len(self.positions)))
         pygame.draw.circle(screen, self.color, (self.x, self.y), self.radius)
