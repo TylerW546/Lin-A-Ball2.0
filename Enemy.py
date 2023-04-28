@@ -5,6 +5,8 @@ from Globals import *
 class Enemy:
     enemies = []
 
+    maxTailPos = 20
+
     def __init__(self, r=25, c=GREEN, s=5):
         # Set up the green ball
         self.radius = r
@@ -15,10 +17,17 @@ class Enemy:
         self.dx = random.choice( [-self.speed, self.speed] )
         self.dy = random.choice( [-self.speed, self.speed] )
 
+        self.positions = []
+
         Enemy.enemies.append(self)
     
     def move(self):
         #MOVE THE GREEN BALL
+
+        self.positions.insert(0, [self.x, self.y])
+        if len(self.positions) > Enemy.maxTailPos:
+            self.positions = self.positions[:Enemy.maxTailPos]
+
         self.x += self.dx
         self.y += self.dy
 
@@ -41,4 +50,7 @@ class Enemy:
             self.y = max(self.radius, min(SCREEN_HEIGHT - self.radius, self.y))
     
     def draw(self, screen):
+        for i in range(len(self.positions)):
+            pos = self.positions[::-1][i]
+            pygame.draw.circle(screen, self.color, (pos[0], pos[1]), self.radius*(i/len(self.positions)))
         pygame.draw.circle(screen, self.color, (self.x, self.y), self.radius)

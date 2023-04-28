@@ -73,6 +73,8 @@ while running and ticks <= gameTimer and lives > 0:
             lives -= 1
             print(points)
     
+
+
     #erase previous drawing
     screen.fill((255, 255, 255))  # Fill the background with white
     
@@ -105,9 +107,9 @@ while running and ticks <= gameTimer and lives > 0:
     if points > highScore:
         highScore = points
     
-    
     highScoreDisplay(screen,highScore)
     pointDisplay(screen,points)
+    livesDisplay(screen, lives)
     gameTimeDisplay(screen,ticks//60, gameTimer//60, lives)
 
     pygame.display.flip()   

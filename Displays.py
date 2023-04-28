@@ -22,6 +22,10 @@ def highScoreDisplay(screen, highScore):
     text_rect.center = (300, 90) #positions bounding box at screen coordinates
     screen.blit(text, text_rect) #writes the text to the screen
 
+def livesDisplay(screen, lives):
+    for i in range(lives):
+        pygame.draw.rect(screen, RED, ([10+14*i, SCREEN_HEIGHT-25,15,15]), 0)
+        pygame.draw.rect(screen, BLACK, ([10+14*i, SCREEN_HEIGHT-25,15,15]), 1)
 
 def gameTimeDisplay(screen, time, gameTime, lives):
     font = pygame.font.SysFont("Arial",20) #choose font
@@ -57,7 +61,7 @@ def gameOver(screen, highScore, lives, time_remaining, total_points, runs_over_t
     
     #show lives
     font = pygame.font.SysFont("Arial",40) #choose font
-    text = font.render("Lives: " +str(lives), True, BLACK, None) #text that you want to display
+    text = font.render("Lives Remaining: " +str(lives), True, BLACK, None) #text that you want to display
         
     text_rect = text.get_rect() #creates text bounding box
     text_rect.center = (300, 350) #positions bounding box at screen coordinates
@@ -92,6 +96,6 @@ def gameOver(screen, highScore, lives, time_remaining, total_points, runs_over_t
    
     while True:
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key==pygame.K_ESCAPE):
                 pygame.quit()
                 exit()
