@@ -1,6 +1,10 @@
 import pygame
 from Globals import *
 
+def zeroPad(num, target):
+    num = str(num)
+    return "0" * (target-len(num)) + num
+
 def pointDisplay(screen, points):
     font = pygame.font.SysFont("Arial",50) #choose font
     text = font.render( str(points), True, BLACK, None) #text that you want to display
@@ -21,7 +25,14 @@ def highScoreDisplay(screen, highScore):
 
 def gameTimeDisplay(screen, time, gameTime, lives):
     font = pygame.font.SysFont("Arial",20) #choose font
-    text = font.render("Timer: " +str(time) +" / "+str(gameTime) + " (" + str(lives) + ")", True, BLACK, None) #text that you want to display
+
+    tMin = time//60
+    tSec = time%60
+
+    gTMin = gameTime//60
+    gtSec = gameTime%60
+
+    text = font.render("Timer: %s:%s / %s:%s" % (tMin, zeroPad(tSec, 2), gTMin, zeroPad(gtSec, 2)), True, BLACK, None) #text that you want to display
         
     text_rect = text.get_rect() #creates text bounding box
     text_rect.center = (300, 580) #positions bounding box at screen coordinates
