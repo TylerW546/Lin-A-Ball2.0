@@ -68,8 +68,9 @@ while running and ticks <= gameTimer and lives > 0:
             player.y = SCREEN_HEIGHT - player.radius
             points = 0
             enemy.radius = 25
-            top_box = True
-            bottom_box = False
+            
+            targetBoxOne = True
+            
             lives -= 1
             print(points)
 

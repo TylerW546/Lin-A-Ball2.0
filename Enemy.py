@@ -37,16 +37,13 @@ class Enemy:
             self.dx = -self.dx
             if random.randint(1,2) == 1:
                 self.dy = max( -18, min( self.dy + random.randint(-6,6),18) )
-            else:
-                self.dy = self.dy
             self.x = max(self.radius, min(SCREEN_WIDTH - self.radius, self.x))
         
         if self.y < self.radius or self.y > SCREEN_WIDTH - self.radius:
             self.dy = -self.dy
             if random.randint(1,2) == 1:
-                self.dx = self.dx
-            else:
                 self.dx = max( -18, min( self.dx + random.randint(-6,6),18) )
+                
             self.y = max(self.radius, min(SCREEN_HEIGHT - self.radius, self.y))
     
     def draw(self, screen):
