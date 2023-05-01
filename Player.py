@@ -12,8 +12,8 @@ def testArea(player, area, fullIn=False):
 
 class Player:
     def __init__(self, r=25, c=Global.RED):
-        self.x = Global.SCREEN_WIDTH - r
-        self.y = Global.SCREEN_HEIGHT - r
+        self.x = Global.GAME_WIDTH - r
+        self.y = Global.GAME_HEIGHT - r
         self.radius = r
         self.color = c
         self.dx = 0
@@ -57,8 +57,8 @@ class Player:
         self.y += self.dy
     
         #this limits the x and y coordinates of the red circle
-        self.x = max(self.radius, min(self.x, Global.SCREEN_WIDTH - self.radius))
-        self.y = max(self.radius, min(self.y, Global.SCREEN_WIDTH - self.radius))
+        self.x = max(self.radius, min(self.x, Global.GAME_WIDTH - self.radius))
+        self.y = max(self.radius, min(self.y, Global.GAME_WIDTH - self.radius))
 
     def testHouseSafety(self):
         for house in House.houses:
@@ -87,8 +87,17 @@ class Player:
 
 
     
-    def draw(self, screen):
+    def draw(self, surface):
         if self.inHouse:
-            pygame.draw.circle(screen, Global.BLUE, (self.x, self.y), self.radius+2)
-        pygame.draw.circle(screen, self.color, (self.x, self.y), self.radius)
+            pygame.draw.circle(surface, Global.BLUE, (self.x, self.y), self.radius+2)
+        pygame.draw.circle(surface, self.color, (self.x, self.y), self.radius)
+        if self.inHouse:
+            numArcs = 3
+            ticksPerArc = 120
+            radii = [self.radius*(ticksPerArc-(Global.ticks+i*ticksPerArc/numArcs)%(ticksPerArc+1))/ticksPerArc for i in range(numArcs)]
+            radii.sort()
+
+            for r in radii[::-1]:
+                pygame.draw.circle(surface, Global.SHIELD_COLOR, (self.x, self.y), min(self.radius+2, r+4))
+                pygame.draw.circle(surface, self.color, (self.x, self.y), r)
         

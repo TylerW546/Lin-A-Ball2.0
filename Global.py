@@ -1,6 +1,12 @@
 # Set the height and width of the screen
-SCREEN_WIDTH = 600
-SCREEN_HEIGHT = 600
+GAME_WIDTH = 600
+GAME_HEIGHT = 600
+
+BORDER_WIDTH = 100
+BORDER_HEIGHT = 100
+
+SCREEN_WIDTH = GAME_WIDTH + 2*BORDER_WIDTH
+SCREEN_HEIGHT = GAME_HEIGHT + 2*BORDER_HEIGHT
 
 # Define some basic colors in RGB format. You can create your own colors if you want more options.
 BLACK = (  0,   0,   0)
@@ -13,6 +19,8 @@ RED =   (255,   0,   0)
 YELLOW = (255, 255, 0)
 CYAN =  (  0, 255, 255)
 MAGENTA = (255,  0, 255)
+
+SHIELD_COLOR = (122,0,122)
 
 #GAME LOOP VARIABLES
 running = True

@@ -26,7 +26,8 @@ RIGHT_JUSTIFY_STRING = str(RIGHT_JUSTIFY_X) + "," +  str(RIGHT_JUSTIFY_Y)
 os.environ['SDL_VIDEO_WINDOW_POS'] = RIGHT_JUSTIFY_STRING
 
 #sets the variable name for the display
-screen = pygame.display.set_mode( (Global.SCREEN_WIDTH, Global.SCREEN_HEIGHT) )
+screen = pygame.display.set_mode( (Global.SCREEN_WIDTH, Global.SCREEN_HEIGHT))
+gameWindow = pygame.surface.Surface((Global.GAME_WIDTH, Global.GAME_HEIGHT))
 
 # Set frame rate
 FPS = 60 # frames per second setting
@@ -64,8 +65,8 @@ while Global.running and Global.ticks <= Global.gameTimer and Global.lives > 0:
         if (player.inZone or player.inHouse):
             None
         else:
-            player.x = Global.SCREEN_WIDTH - player.radius #send back to bottom corner
-            player.y = Global.SCREEN_HEIGHT - player.radius
+            player.x = Global.GAME_WIDTH - player.radius #send back to bottom corner
+            player.y = Global.GAME_HEIGHT - player.radius
             Global.points = 0
             enemy.radius = 25
             
@@ -76,21 +77,21 @@ while Global.running and Global.ticks <= Global.gameTimer and Global.lives > 0:
 
 
     #erase previous drawing
-    screen.fill((255, 255, 255))  # Fill the background with white
+    gameWindow.fill((255, 255, 255))  # Fill the background with white
     
     #draw the safety rectangles
-    zone1.draw(screen)
-    zone2.draw(screen)
+    zone1.draw(gameWindow)
+    zone2.draw(gameWindow)
     
     #move the safe house
     if Global.safe == True:
         house.move()
         Global.safe = False
-    house.draw(screen)
+    house.draw(gameWindow)
     
     #draw the new red circle and green ball based on the new coordinates
-    player.draw(screen)
-    enemy.draw(screen)
+    player.draw(gameWindow)
+    enemy.draw(gameWindow)
 
     #calculate and display points
     if player.inZone and zone1.playerIn == Global.targetBoxOne: #top left box
@@ -106,10 +107,12 @@ while Global.running and Global.ticks <= Global.gameTimer and Global.lives > 0:
 
     Global.highScore = max(Global.points, Global.highScore)
     
-    highScoreDisplay(screen,Global.highScore)
-    pointDisplay(screen,Global.points)
-    livesDisplay(screen, Global.lives)
-    gameTimeDisplay(screen,Global.ticks//60, Global.gameTimer//60, Global.lives)
+    highScoreDisplay(gameWindow,Global.highScore)
+    pointDisplay(gameWindow,Global.points)
+    livesDisplay(gameWindow, Global.lives)
+    gameTimeDisplay(gameWindow,Global.ticks//60, Global.gameTimer//60)
+
+    screen.blit(gameWindow, (Global.BORDER_WIDTH, Global.BORDER_HEIGHT))
 
     pygame.display.flip()   
     
