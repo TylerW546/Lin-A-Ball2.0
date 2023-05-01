@@ -1,16 +1,19 @@
 import pygame
 import math
-from Globals import *
-from House import *
+import Global
+from Areas import *
 from Enemy import Enemy
 
-def testArea(player, area):
-    return player.x + player.radius >= area.x and player.x - player.radius <= area.x + area.size and player.y + player.radius >= area.y and player.y - player.radius <= area.y + area.size
+def testArea(player, area, fullIn=False):
+    if not fullIn:
+        return player.x + player.radius >= area.x and player.x - player.radius <= area.x + area.size and player.y + player.radius >= area.y and player.y - player.radius <= area.y + area.size
+    else:
+        return player.x - player.radius >= area.x and player.x + player.radius <= area.x + area.size and player.y - player.radius >= area.y and player.y + player.radius <= area.y + area.size
 
 class Player:
-    def __init__(self, r=25, c=RED):
-        self.x = SCREEN_WIDTH - r
-        self.y = SCREEN_HEIGHT - r
+    def __init__(self, r=25, c=Global.RED):
+        self.x = Global.SCREEN_WIDTH - r
+        self.y = Global.SCREEN_HEIGHT - r
         self.radius = r
         self.color = c
         self.dx = 0
@@ -54,8 +57,8 @@ class Player:
         self.y += self.dy
     
         #this limits the x and y coordinates of the red circle
-        self.x = max(self.radius, min(self.x, SCREEN_WIDTH - self.radius))
-        self.y = max(self.radius, min(self.y, SCREEN_WIDTH - self.radius))
+        self.x = max(self.radius, min(self.x, Global.SCREEN_WIDTH - self.radius))
+        self.y = max(self.radius, min(self.y, Global.SCREEN_WIDTH - self.radius))
 
     def testHouseSafety(self):
         for house in House.houses:
@@ -69,7 +72,7 @@ class Player:
     def testZoneSafety(self):
         self.inZone = False
         for zone in [zone1, zone2]:
-            if testArea(self, zone):
+            if testArea(self, zone, True):
                 self.inZone = True
                 zone.playerIn = True
             else:
@@ -86,6 +89,6 @@ class Player:
     
     def draw(self, screen):
         if self.inHouse:
-            pygame.draw.circle(screen, BLUE, (self.x, self.y), self.radius+2)
+            pygame.draw.circle(screen, Global.BLUE, (self.x, self.y), self.radius+2)
         pygame.draw.circle(screen, self.color, (self.x, self.y), self.radius)
         

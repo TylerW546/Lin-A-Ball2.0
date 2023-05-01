@@ -20,11 +20,9 @@ points = 0
 total_points = 0
 targetBoxOne = True
 ticks = 0
-
 startingTime = 18000 #60 * 300 = 18000 for 5 minutes
 gameTimer = startingTime 
-
 highScore = 0
-safe = True
 lives = 10
 runs_over_ten = 0
+safe = True
