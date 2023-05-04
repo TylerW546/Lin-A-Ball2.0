@@ -72,9 +72,10 @@ class Player:
     def testZoneSafety(self):
         self.inZone = False
         for zone in [zone1, zone2]:
-            if testArea(self, zone, True):
-                self.inZone = True
+            if testArea(self, zone, False):
                 zone.playerIn = True
+                if testArea(self, zone, True):
+                    self.inZone = True
             else:
                 zone.playerIn = False
 

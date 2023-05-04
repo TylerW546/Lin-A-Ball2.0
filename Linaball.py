@@ -94,7 +94,7 @@ while Global.running and Global.ticks <= Global.gameTimer and Global.lives > 0:
     enemy.draw(gameWindow)
 
     #calculate and display points
-    if player.inZone and zone1.playerIn == Global.targetBoxOne: #top left box
+    if True in [zone1.playerIn, zone2.playerIn] and zone1.playerIn == Global.targetBoxOne: #top left box
         Global.points += 1
         Global.total_points += 1
 
